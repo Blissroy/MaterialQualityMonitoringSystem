@@ -68,3 +68,8 @@ def upload_tests_file(request):
         TestResult.objects.create(test=test, parameter=row.get('parameter','value'), value=row.get('value',0), unit=row.get('unit','MPa'))
         created += 1
     return Response({"created":created})
+from django.http import HttpResponse
+
+def materials_home(request):
+    return HttpResponse("Materials API Home 🧱")
+

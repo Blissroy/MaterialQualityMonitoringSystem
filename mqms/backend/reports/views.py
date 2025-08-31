@@ -12,3 +12,7 @@ def send_test_report_email(test, recipient_email):
     )
     email.attach_file(pdf_path)
     email.send()
+from django.http import HttpResponse
+
+def reports_home(request):
+    return HttpResponse("Reports API Home 📊")

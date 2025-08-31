@@ -10,3 +10,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticated]
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Projects API Home 🚧")

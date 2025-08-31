@@ -42,3 +42,18 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls)),
 ]
+from django.contrib import admin
+from django.urls import path, include
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Welcome to MQMS Backend API 🚀")
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', home, name='home'),  # 👈 Default route
+    path('materials/', include('materials.urls')),  # 👈 Routes for materials app
+    path('projects/', include('projects.urls')),
+    path('users/', include('users.urls')),
+]
+

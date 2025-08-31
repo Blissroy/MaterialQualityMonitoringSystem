@@ -10,3 +10,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAdminUser]
+from django.http import HttpResponse
+
+def users_home(request):
+    return HttpResponse("Users API Home 🚧")
