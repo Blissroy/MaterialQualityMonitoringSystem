@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .report { border: 1px solid #ddd; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Material Quality Test Report</h2>
+        <p>Project: {{ test.project.project_name }}</p>
+        <p>Material: {{ test.material_type.name }}</p>
+        <p>Date: {{ test.created_at }}</p>
+    </div>
+
+    <div class="report">
+        <h3>Test Results:</h3>
+        <ul>
+            {% for key, value in test.results.items %}
+                <li><b>{{ key }}:</b> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
