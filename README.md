@@ -1,49 +1,134 @@
-# MaterialQualityMonitoringSystem
-A web app for logging and analyzing construction material test results (Concrete, Steel, Aggregate).
-A web-based system for logging, analyzing, and monitoring the quality of construction materials 
-such as concrete, steel, and aggregates. It provides engineers and project managers with 
-dashboards, reports, and automated PDF generation for better decision-making.
-## 🚀 Features
-- User authentication (register/login with JWT)
-- Project management (create, update, delete projects)
-- Material quality tests (concrete, steel, aggregates, etc.)
-- PDF report generation
-- REST API endpoints
-- Admin dashboard
-## 🛠 Tech Stack
-- Backend: Django, Django REST Framework
-- Database: SQLite (can be extended to PostgreSQL)
-- Frontend: React.js / Django Templates (to be implemented)
-- Authentication: JWT (djangorestframework-simplejwt)
-- Reporting: ReportLab (PDF generation)
-## ⚙️ Installation
+🏗 Material Quality Monitoring System (MQMS)
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/MaterialQualityMonitoringSystem.git
-   cd MaterialQualityMonitoringSystem/mqms
+A web-based system for logging, analyzing, and monitoring the quality of construction materials such as concrete, steel, and aggregates.
+It provides engineers and project managers with dashboards, reports, and automated PDF generation for better decision-making.
+
+🚀 Features
+
+🔑 User authentication (JWT-based login/register)
+
+📂 Project management (create, update, delete projects)
+
+🧱 Material quality tests (Concrete, Steel, Aggregates, etc.)
+
+📊 Dashboards & PDF report generation (via ReportLab)
+
+🌐 REST API endpoints for integration with frontend
+
+⚙️ Admin dashboard (Django Admin interface)
+
+🛠 Tech Stack
+
+Backend: Django, Django REST Framework
+
+Database: SQLite (default) → can be extended to PostgreSQL
+
+Frontend: React.js or Django Templates (to be implemented)
+
+Authentication: JWT (djangorestframework-simplejwt)
+
+Reporting: ReportLab (PDF generation)
+
+⚙️ Installation
+
+Clone the repository
+
+git clone https://github.com/yourusername/MaterialQualityMonitoringSystem.git
+cd MaterialQualityMonitoringSystem/mqms
+
+
+Create and activate a virtual environment
+
 python -m venv .venv
-source .venv/bin/activate   # On Windows: .venv\Scripts\activate
+# On Linux/Mac
+source .venv/bin/activate  
+# On Windows
+.venv\Scripts\activate
+
+
+Install dependencies
+
 pip install -r requirements.txt
+
+
+Run migrations & start server
+
+python manage.py migrate
 python manage.py runserver
-GETTING THE TOKEN(LOGIN)
-API: http://127.0.0.1:8000/api/auth/token/
+
+🔑 Authentication (Getting a Token)
+
+Use the JWT authentication endpoint:
+
+POST → http://127.0.0.1:8000/api/auth/token/
+
 {
   "username": "admin",
   "password": "yourpassword"
 }
-API: http://127.0.0.1:8000/materials/types/
+
+
+Response:
+
+{
+  "access": "youraccesstoken",
+  "refresh": "yourrefreshtoken"
+}
+
+
+Copy the access token and include it in your request headers:
+
+Authorization: Bearer youraccesstoken
+
+📡 API Endpoints
+Users
+
+GET /users/ → List users
+
+POST /users/ → Create user
+
+Projects
+
+GET /projects/ → List projects
+
+POST /projects/ → Create a project
+
+Example (POST)
+
+{
+  "name": "Bridge Project",
+  "location": "Accra",
+  "client_name": "ABC Constructions"
+}
+
+Material Types
+
+GET /materials/types/ → List material types
+
+POST /materials/types/ → Add material type
+
+Example (POST)
+
 {
   "name": "Concrete",
   "description": "Standard grade concrete"
 }
-OR
+
+
+or
+
 {
   "name": "Steel"
 }
 
-Running a test 
-http://127.0.0.1:8000/materials/tests/
+Material Tests
+
+GET /materials/tests/ → List tests
+
+POST /materials/tests/ → Add new test
+
+Example (POST)
+
 {
   "project": 1,
   "material_type": 2,
@@ -51,18 +136,20 @@ http://127.0.0.1:8000/materials/tests/
   "test_date": "2025-09-06"
 }
 
+Reports
 
-### 6. API Endpoints  
-Document your APIs (at least a few examples).  
-```markdown
-## 📡 API Endpoints
+GET /reports/ → View available reports
 
-- `http://127.0.0.1:8000/users/` → User API  
-- `http://127.0.0.1:8000/projects/` → Projects API  
-- `http://127.0.0.1:8000/materials/` → Materials API  
-- `http://127.0.0.1:8000/reports/` → Reports API  
-## 🖥 Usage
-- Login as an engineer
-- Add a project
-- Upload/enter material test results
-- View dashboards and download PDF reports
+POST /reports/ → Generate/download report
+
+🖥 Usage Workflow
+
+🔑 Login as Engineer/Admin using JWT
+
+📂 Create a new Project
+
+🧱 Define Material Types (e.g., Concrete, Steel)
+
+🧪 Add Material Tests linked to projects and material types
+
+📊 View dashboards and download PDF reports
