@@ -1,33 +1,24 @@
-"""
-URL configuration for backend project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
 from rest_framework import routers
 from users.views import UserViewSet
 from projects.views import ProjectViewSet
-from materials.views import MaterialTypeViewSet, MaterialTestViewSet, TestResultViewSet, TestReportViewSet
+from materials.views import (
+    MaterialTypeViewSet,
+    MaterialTestViewSet,
+    TestResultViewSet,
+    TestReportViewSet,
+)
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+
+# Default homepage view
+def home(request):
+    return HttpResponse("Welcome to MQMS Backend API 🚀")
+
+
+# DRF router for viewsets
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'projects', ProjectViewSet)
@@ -36,23 +27,20 @@ router.register(r'material-tests', MaterialTestViewSet)
 router.register(r'test-results', TestResultViewSet)
 router.register(r'test-reports', TestReportViewSet)
 
+
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
+
+    # JWT authentication
     path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Routers
     path('api/', include(router.urls)),
-]
-from django.contrib import admin
-from django.urls import path, include
-from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Welcome to MQMS Backend API 🚀")
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', home, name='home'),  # 👈 Default route
-    path('materials/', include('materials.urls')),  # 👈 Routes for materials app
+    # App-specific urls
+    path('materials/', include('materials.urls')),
     path('projects/', include('projects.urls')),
     path('users/', include('users.urls')),
 ]
