@@ -33,7 +33,7 @@ Reporting: ReportLab (PDF generation)
 
 Clone the repository
 
-git clone https://github.com/yourusername/MaterialQualityMonitoringSystem.git
+git clone https://github.com/Blissroy/MaterialQualityMonitoringSystem
 cd MaterialQualityMonitoringSystem/mqms
 
 
