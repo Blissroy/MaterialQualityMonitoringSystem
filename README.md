@@ -53,6 +53,8 @@ pip install -r requirements.txt
 
 Run migrations & start server
 
+python manage.py createsuperuser
+
 python manage.py migrate
 python manage.py runserver
 
